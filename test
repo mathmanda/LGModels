@@ -1,0 +1,13 @@
+#!/bin/bash
+# Test all files. Any options passed to this script will be passed to the test.
+# Only tests .py files in the main repository. !(STRING) matches anything that
+# doesn't match STRING; in our case, checkin.py, ModuliSpace.py, and
+# reconstruct.py are the only .py files not tested.
+shopt -s extglob
+if [ -n "$1" ]
+then
+    sage -t "$*" !(checkin|ModuliSpace|reconstruct).py
+else
+    sage -t !(checkin|ModuliSpace|reconstruct).py
+fi
+shopt -u extglob
